@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "./Post.module.css";
+import { createBody } from "../helpers.js";
 
-function Post(props) {
+function Post({ postContent }) {
+  const { humanDate, accessibleDate, author, content, title } = postContent;
+  // console.log(date, author, content, title);
+  console.log(content);
+
   return (
     <article
       itemscope
@@ -9,15 +14,12 @@ function Post(props) {
       className={styles.post}
     >
       <header>
-        <h2 itemprop="headline">Post Title 1</h2>
-        {
-          // <!-- publication date -->
-        }
+        <h2 itemprop="headline">{title}</h2>
 
         <div className={styles.date}>
           <strong>Publish Date</strong>:
           <span itemprop="datePublished">
-            <time datetime="2016-05-01">May 1, 2016</time>
+            <time datetime={accessibleDate}>{humanDate}</time>
           </span>
         </div>
 
@@ -26,9 +28,11 @@ function Post(props) {
         </div>
       </header>
 
-      <div itemprop="articleBody" className={styles.content}>
-        Post content...
-      </div>
+      <div
+        itemprop="articleBody"
+        className={styles.content}
+        dangerouslySetInnerHTML={createBody(content)}
+      />
     </article>
   );
 }

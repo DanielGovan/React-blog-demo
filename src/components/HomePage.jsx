@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Post from "./Post";
+import { getBlogPosts } from "../apis";
 
-function HomePage(props) {
+function HomePage() {
+  const [blogContent, setBlogContent] = useState([]);
+
+  useEffect(async () => {
+    const result = await getBlogPosts();
+    setBlogContent(result);
+  }, []);
+
   return (
     <>
       {
@@ -15,8 +23,15 @@ function HomePage(props) {
       }
 
       <div itemscope itemtype="https://schema.org/Blog">
-        <Post />
-        <Post />
+        {!blogContent ? (
+          <>
+            <h3>Loading...</h3>
+          </>
+        ) : (
+          blogContent.map((postContent) => {
+            return <Post id={postContent.id} postContent={postContent} />;
+          })
+        )}
       </div>
     </>
   );
