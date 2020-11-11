@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Login.module.css";
 
-function Login(props) {
+const Login = (props) => {
   return (
     <>
       <h1>Login</h1>
@@ -26,6 +26,6 @@ function Login(props) {
       </div>
     </>
   );
-}
+};
 
 export default Login;

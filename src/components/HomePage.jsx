@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
+
 import Post from "./Post";
 import { getBlogPosts } from "../apis";
+import { getState } from "../state";
 
-function HomePage() {
-  const [blogContent, setBlogContent] = useState([]);
+const HomePage = () => {
+  const [{ postsContent }, dispatch] = getState();
 
   useEffect(async () => {
+    // checks state for posts content, else fetches from api and dispatches action to update state
+    if (postsContent.length > 0) return null;
     const result = await getBlogPosts();
-    setBlogContent(result);
+    dispatch({
+      type: "getPosts",
+      newContent: result,
+    });
   }, []);
 
   return (
@@ -23,18 +30,19 @@ function HomePage() {
       }
 
       <div itemscope itemtype="https://schema.org/Blog">
-        {!blogContent ? (
+        {!postsContent ? (
           <>
             <h3>Loading...</h3>
           </>
         ) : (
-          blogContent.map((postContent) => {
+          postsContent &&
+          postsContent.map((postContent) => {
             return <Post id={postContent.id} postContent={postContent} />;
           })
         )}
       </div>
     </>
   );
-}
+};
 
 export default HomePage;

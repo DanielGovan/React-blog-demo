@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
+
 import { getPages } from "../apis";
 import { createBody } from "../helpers";
+import { getState } from "../state";
 
-function AboutPage() {
-  const [pagesContent, setPagesContent] = useState({});
+const AboutPage = () => {
+  const [{ pagesContent }, dispatch] = getState();
 
   useEffect(async () => {
+    // checks state for page content, else fetches from api and dispatches action to update state
+    if (pagesContent.length > 0) return null;
     const result = await getPages();
-    setPagesContent(result);
+    dispatch({
+      type: "getPages",
+      newContent: result,
+    });
   }, []);
 
   return (
@@ -30,6 +37,6 @@ function AboutPage() {
       )}
     </div>
   );
-}
+};
 
 export default AboutPage;

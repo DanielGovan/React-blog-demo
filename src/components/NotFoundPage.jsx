@@ -1,6 +1,6 @@
 import React from "react";
 
-function NotFoundPage(props) {
+const NotFoundPage = () => {
   return (
     <div>
       <h2>Page not found</h2>
@@ -10,6 +10,6 @@ function NotFoundPage(props) {
       </p>
     </div>
   );
-}
+};
 
 export default NotFoundPage;

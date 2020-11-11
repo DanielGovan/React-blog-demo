@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
-function Header(props) {
+const Header = () => {
   return (
     <>
       <header
@@ -93,6 +93,6 @@ function Header(props) {
       </header>
     </>
   );
-}
+};
 
 export default Header;

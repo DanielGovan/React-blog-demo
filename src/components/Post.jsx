@@ -2,10 +2,8 @@ import React from "react";
 import styles from "./Post.module.css";
 import { createBody } from "../helpers.js";
 
-function Post({ postContent }) {
+const Post = ({ postContent }) => {
   const { humanDate, accessibleDate, author, content, title } = postContent;
-  // console.log(date, author, content, title);
-  console.log(content);
 
   return (
     <article
@@ -35,6 +33,6 @@ function Post({ postContent }) {
       />
     </article>
   );
-}
+};
 
 export default Post;
