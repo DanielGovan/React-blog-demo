@@ -1,6 +1,10 @@
 import axios from "axios";
 import { getHumanDate, getAccessibleDate } from "./helpers.js";
 
+// TODO error handling
+// TODO second api call to find the author name
+// TODO Put jwt token in local storage, handle expired tokens
+
 export const getBlogPosts = async () => {
   const endPoint = "https://js1.10up.com/wp-json/wp/v2/posts";
   // fetch from the api
@@ -28,7 +32,6 @@ export const getBlogPosts = async () => {
       });
     }
   }
-  // needs a second call to find the author name? Low on time so moving on.
   return parsedData;
 };
 
@@ -51,17 +54,19 @@ export const getPages = async () => {
   return parsedData;
 };
 
-export const logIn = async (un, pw) => {
+export const logIn = async (login) => {
   const endPoint = "https://js1.10up.com/wp-json/jwt-auth/v1/token";
-  const result = await axios.post(endPoint, { username: un, password: pw });
-  console.log(result.data);
+  const result = await axios.post(endPoint, login);
+  // console.log(result.data);
   return result.data;
 };
+
+// TODO
 
 export const validate = async () => {
   const endPoint = "https://js1.10up.com/wp-json/jwt-auth/v1/token/validate";
   const result = await axios.post(endPoint);
-  console.log(result.data);
+  // console.log(result.data);
   return result.data;
 };
 

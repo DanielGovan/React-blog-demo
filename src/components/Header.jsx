@@ -1,20 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import { getState } from "../state/stateManager";
+import { LOG_OUT } from "../state/actions";
 
 const Header = () => {
+  const [state, dispatch] = getState();
+  const handleLogOut = async () => {
+    dispatch({
+      type: LOG_OUT,
+    });
+  };
   return (
     <>
       <header
         className={styles["site-header"]}
         role="banner"
-        itemscope="itemscope"
-        itemtype="http://schema.org/WPHeader"
+        itemScope="itemscope"
+        itemType="http://schema.org/WPHeader"
       >
         <div
           className={styles["site-title"]}
-          itemscope
-          itemtype="http://schema.org/Organization"
+          itemScope
+          itemType="http://schema.org/Organization"
         >
           10up Blog
         </div>
@@ -22,8 +30,8 @@ const Header = () => {
         <nav
           className={styles["site-navigation"]}
           role="navigation"
-          itemscope="itemscope"
-          itemtype="http://schema.org/SiteNavigationElement"
+          itemScope="itemscope"
+          itemType="http://schema.org/SiteNavigationElement"
         >
           <a
             href="#menu-main-nav"
@@ -59,35 +67,38 @@ const Header = () => {
               <Link to="about">About</Link>
             </li>
 
-            {
-              //  Should only show when user is logged out
-            }
-            <li
-              className={`
-                ${styles["logged-out"]}
-                ${styles["menu-item"]}
-                ${styles["menu-item-type-custom"]}
-                ${styles["menu-item-object-custom"]}
-                ${styles["menu-item-1915"]}
-              `}
-            >
-              <Link to="login">Login</Link>
-            </li>
-
-            {
-              // Should only show when user is logged in
-            }
-            <li
-              className={`
+            {state.userInfo.user_nicename ? (
+              <>
+                <li
+                  className={`
                 ${styles["logged-in"]}
                 ${styles["menu-item"]}
                 ${styles["menu-item-type-custom"]}
                 ${styles["menu-item-object-custom"]}
                 ${styles["menu-item-1915"]}
               `}
-            >
-              <a href="#">Logout</a>
-            </li>
+                >
+                  <a href="#" onClick={handleLogOut}>
+                    Logout
+                  </a>
+                </li>
+              </>
+            ) : (
+              <>
+                {" "}
+                <li
+                  className={`
+                ${styles["logged-out"]}
+                ${styles["menu-item"]}
+                ${styles["menu-item-type-custom"]}
+                ${styles["menu-item-object-custom"]}
+                ${styles["menu-item-1915"]}
+              `}
+                >
+                  <Link to="login">Login</Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       </header>

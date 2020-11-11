@@ -6,7 +6,7 @@ import { getState } from "../state/stateManager";
 import { GET_POSTS } from "../state/actions";
 
 const HomePage = () => {
-  const [{ postsContent }, dispatch] = getState();
+  const [{ postsContent, userInfo }, dispatch] = getState();
 
   useEffect(async () => {
     // checks state for posts content, else fetches from api and dispatches action to update state
@@ -20,11 +20,11 @@ const HomePage = () => {
 
   return (
     <>
-      {
-        //<!-- Should only show when user is logged in -->
-      }
-
-      <section class="welcome logged-in">Welcome username!</section>
+      {userInfo && userInfo.user_nicename && (
+        <section class="welcome logged-in">
+          Welcome {userInfo.user_nicename}!
+        </section>
+      )}
 
       {
         //<!-- Retrieve blog posts from WP API. -->

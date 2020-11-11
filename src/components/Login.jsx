@@ -1,37 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { getState } from "../state/stateManager";
 import { logIn } from "../helpers/apis";
 import { LOG_IN } from "../state/actions";
+import { Redirect } from "react-router-dom";
+
+//TODO validation
 
 const LogIn = () => {
+  const [formData, setFormData] = useState();
   const [{ userInfo }, dispatch] = getState();
-  const handleLogIn = async () => {
-    await logIn("jane", "12345");
-    // dispatch({
-    //   type: LOG_IN,
-    //   userData: result.data,
-    // });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData === undefined) {
+      alert("Please enter your username and Password");
+    } else {
+      await logIn(formData)
+        .then((result) => {
+          dispatch({
+            type: LOG_IN,
+            userData: result,
+          });
+          // go to home page
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
   };
 
   return (
     <>
-      <h1>Login</h1>
-      <a href="#" onClick={handleLogIn}>
-        Log in
-      </a>
+      {!userInfo.user_nicename ? <h1>Login</h1> : <Redirect to="/" />}
       <div className={styles.login}>
-        {
-          //<!-- Connect this form with the WP JWT API. -->
-        }
-        <form method="post">
+        <form method="post" onSubmit={handleSubmit}>
           <div>
-            <label for="username">Username</label>
-            <input id="username" type="text" name="username" />
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              name="username"
+              onChange={handleChange}
+            />
           </div>
           <div>
-            <label for="password">Password</label>
-            <input id="password" type="password" name="password" />
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              onChange={handleChange}
+            />
           </div>
           <div>
             <input type="submit" value="Submit" />
