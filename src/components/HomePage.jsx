@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import Post from "./Post";
-import { getBlogPosts } from "../apis";
-import { getState } from "../state";
+import { getBlogPosts } from "../helpers/apis";
+import { getState } from "../state/stateManager";
+import { GET_POSTS } from "../state/actions";
 
 const HomePage = () => {
   const [{ postsContent }, dispatch] = getState();
@@ -12,7 +13,7 @@ const HomePage = () => {
     if (postsContent.length > 0) return null;
     const result = await getBlogPosts();
     dispatch({
-      type: "getPosts",
+      type: GET_POSTS,
       newContent: result,
     });
   }, []);

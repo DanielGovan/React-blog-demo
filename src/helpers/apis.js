@@ -4,7 +4,7 @@ import { getHumanDate, getAccessibleDate } from "./helpers.js";
 export const getBlogPosts = async () => {
   const endPoint = "https://js1.10up.com/wp-json/wp/v2/posts";
   // fetch from the api
-  const result = await axios(endPoint);
+  const result = await axios.get(endPoint);
   // parse into useful data
   // Not sure how much of the blog functionality to replicate here so keeping it simple
   let parsedData = [];
@@ -35,7 +35,7 @@ export const getBlogPosts = async () => {
 export const getPages = async () => {
   const endPoint = "https://js1.10up.com/wp-json/wp/v2/pages";
   // fetch from the api
-  const result = await axios(endPoint);
+  const result = await axios.get(endPoint);
   // parse into a useful dataset
   let parsedData = [];
   for (const item of result.data) {
@@ -50,6 +50,23 @@ export const getPages = async () => {
   }
   return parsedData;
 };
+
+export const logIn = async (un, pw) => {
+  const endPoint = "https://js1.10up.com/wp-json/jwt-auth/v1/token";
+  const result = await axios.post(endPoint, { username: un, password: pw });
+  console.log(result.data);
+  return result.data;
+};
+
+export const validate = async () => {
+  const endPoint = "https://js1.10up.com/wp-json/jwt-auth/v1/token/validate";
+  const result = await axios.post(endPoint);
+  console.log(result.data);
+  return result.data;
+};
+
+// getLoginToken? post
+// validate token
 
 // ## APIs
 

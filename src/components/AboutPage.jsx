@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import { getPages } from "../apis";
-import { createBody } from "../helpers";
-import { getState } from "../state";
+import { getPages } from "../helpers/apis";
+import { createBody } from "../helpers/helpers";
+import { getState } from "../state/stateManager";
+import { GET_PAGES } from "../state/actions";
 
 const AboutPage = () => {
   const [{ pagesContent }, dispatch] = getState();
@@ -12,7 +13,7 @@ const AboutPage = () => {
     if (pagesContent.length > 0) return null;
     const result = await getPages();
     dispatch({
-      type: "getPages",
+      type: GET_PAGES,
       newContent: result,
     });
   }, []);

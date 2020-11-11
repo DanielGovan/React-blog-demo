@@ -1,24 +1,26 @@
+import * as actions from "./actions";
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case "getPosts":
+    case actions.GET_POSTS:
       return {
         ...state,
         postsContent: action.newContent,
       };
-    case "getPages":
+    case actions.GET_PAGES:
       return {
         ...state,
         pagesContent: action.newContent,
       };
-    case "logIn":
+    case actions.LOG_IN:
       return {
         ...state,
-        theme: action.newTheme,
+        userInfo: action.userData,
       };
-    case "logOut":
+    case actions.LOG_OUT:
       return {
         ...state,
-        theme: action.newTheme,
+        userInfo: {},
       };
 
     default:

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Post.module.css";
-import { createBody } from "../helpers.js";
+import { createBody } from "../helpers/helpers.js";
 
 const Post = ({ postContent }) => {
   const { humanDate, accessibleDate, author, content, title } = postContent;
