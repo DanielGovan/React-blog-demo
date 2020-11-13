@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
-import { getState } from "../state/stateManager";
+import { GetState } from "../state/stateManager";
 import { LOG_OUT } from "../state/actions";
 
 // TODO split nav and nav items into seperate components
 
 const Header = () => {
-  const [state, dispatch] = getState();
+  const [state, dispatch] = GetState();
   const handleLogOut = async () => {
     dispatch({
       type: LOG_OUT,

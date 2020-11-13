@@ -2,20 +2,24 @@ import React, { useEffect } from "react";
 
 import { getPages } from "../helpers/apis";
 import { createBody } from "../helpers/helpers";
-import { getState } from "../state/stateManager";
+import { GetState } from "../state/stateManager";
 import { GET_PAGES } from "../state/actions";
 
 const AboutPage = () => {
-  const [{ pagesContent }, dispatch] = getState();
+  const [{ pagesContent }, dispatch] = GetState();
 
-  useEffect(async () => {
-    // checks state for page content, else fetches from api and dispatches action to update state
+  // checks state for page content, else fetches from api and dispatches action to update state
+  const setPages = async () => {
     if (pagesContent.length > 0) return null;
     const result = await getPages();
     dispatch({
       type: GET_PAGES,
       newContent: result,
     });
+  };
+
+  useEffect(() => {
+    setPages();
   }, []);
 
   return (

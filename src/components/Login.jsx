@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Login.module.css";
-import { getState } from "../state/stateManager";
+import { GetState } from "../state/stateManager";
 import { logIn } from "../helpers/apis";
 import { LOG_IN } from "../state/actions";
 import { Redirect } from "react-router-dom";
@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom";
 
 const LogIn = () => {
   const [formData, setFormData] = useState();
-  const [{ userInfo }, dispatch] = getState();
+  const [{ userInfo }, dispatch] = GetState();
 
   const handleChange = (e) => {
     setFormData({
