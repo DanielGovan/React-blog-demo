@@ -5,7 +5,7 @@ import { logIn } from "../helpers/apis";
 import { LOG_IN } from "../state/actions";
 import { Redirect } from "react-router-dom";
 
-//TODO validation
+//TODO form validation, login validation
 
 const LogIn = () => {
   const [formData, setFormData] = useState();
@@ -29,7 +29,6 @@ const LogIn = () => {
             type: LOG_IN,
             userData: result,
           });
-          // go to home page
         })
         .catch((err) => {
           console.log("Error", err);

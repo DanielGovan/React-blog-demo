@@ -4,6 +4,8 @@ import styles from "./Header.module.css";
 import { getState } from "../state/stateManager";
 import { LOG_OUT } from "../state/actions";
 
+// TODO split nav and nav items into seperate components
+
 const Header = () => {
   const [state, dispatch] = getState();
   const handleLogOut = async () => {
@@ -42,9 +44,6 @@ const Header = () => {
             <span aria-hidden="true">☰</span>
           </a>
 
-          {
-            //  Make sure to update menu links to work with your app.
-          }
           <ul id="menu-main-nav" className={styles["primary-menu"]}>
             <li
               className={`

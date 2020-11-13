@@ -26,10 +26,6 @@ const HomePage = () => {
         </section>
       )}
 
-      {
-        //<!-- Retrieve blog posts from WP API. -->
-      }
-
       <div itemscope itemtype="https://schema.org/Blog">
         {!postsContent ? (
           <>
